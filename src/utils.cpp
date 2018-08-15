@@ -27,12 +27,12 @@
 
 using namespace std;
 
-static void binary(const uint64_t number, int &pos, string &bin);
+static void binary(const uint64_t number, uint64_t &pos, string &bin);
 
 void Utils::to_binary(const uint64_t bitmap)
 {
 	string bin = "0000000000000000000000000000000000000000000000000000000000000000";
-	int pos = bin.length() - 1;
+    uint64_t pos = bin.length() - 1;
 	binary(bitmap, pos, bin);
 	cout << '\t' << bin << endl;
 }
@@ -40,7 +40,7 @@ void Utils::to_binary(const uint64_t bitmap)
 void Utils::to_binary(const uint64_t bitmap, const string label)
 {
 	string bin = "0000000000000000000000000000000000000000000000000000000000000000";
-	int pos = bin.length() - 1;
+    uint64_t pos = bin.length() - 1;
 	binary(bitmap, pos, bin);
 	cout << label << "->\t" << bin << endl;
 }
@@ -48,7 +48,7 @@ void Utils::to_binary(const uint64_t bitmap, const string label)
 void Utils::to_binary(const bits128 bitmap, const string label)
 {
 	string bin = "0000000000000000000000000000000000000000000000000000000000000000";
-	int pos = bin.length() - 1;
+    uint64_t pos = bin.length() - 1;
 	binary(bitmap.lo, pos, bin);
 	cout << label << ".lo->\t" << bin << endl;
 	bin = "0000000000000000000000000000000000000000000000000000000000000000";
@@ -58,7 +58,7 @@ void Utils::to_binary(const bits128 bitmap, const string label)
 }
 
 
-void binary(const uint64_t number, int &pos, string &bin)
+void binary(const uint64_t number, uint64_t &pos, string &bin)
 {
 	uint64_t remainder;
 

@@ -24,7 +24,6 @@
 
 #include <cstdlib>
 #include <sstream>
-#include <algorithm>
 #include <iomanip>
 #include "commands.h"
 #include "hexbitboard.h"
@@ -149,13 +148,13 @@ void Commands::command_display()
 
 std::string Commands::recode_display(std::string hexboard_display)
 {
-	for (int i = 0; i < 12; ++i) {
-		for (int j = 0; j < 11; ++j) {
+    for (uint32_t i = 0; i < 12; ++i) {
+        for (uint32_t j = 0; j < 11; ++j) {
 			string piece = "";
 			piece = piece + char(int('A') + i) + char(int('A') + j);
             size_t pos = hexboard_display.find(piece);
 			if (pos != string::npos) {
-				unsigned int base = HEX_A1 + i + (j * Hexbitboard::RANK_WIDTH);
+                uint64_t base = HEX_A1 + i + (j * Hexbitboard::RANK_WIDTH);
 				if (i > 8) base--;
 				piece = Hexbitboard::get_men(base);
                 hexboard_display = hexboard_display.replace(pos, 2, piece);
@@ -218,8 +217,8 @@ void Commands::edit()
 	string edit_line;
 	string token;
 	men piece;
-	unsigned int base;
-	char file;
+    uint32_t base;
+    unsigned char file;
 	cout << "type '.' to exit, 'c' to change color\n";
 	std::getline(cin, edit_line);
 	for (;;) {
@@ -243,8 +242,7 @@ void Commands::edit()
 				Hexbitboard::clean_bitboards();
 			}
 			else {
-				std::transform(token.begin(), token.end(),token.begin(), toupper);
-				switch (token[0]) {
+                switch (std::toupper(token[0])) {
 				case 'K':
 					piece = edit_white ? WHITE_KING : BLACK_KING;
 					break;
@@ -259,21 +257,22 @@ void Commands::edit()
 					continue;
 				}
 				if (token.length() > 2) {
-					file = token[1];
+                    file = uint8_t(std::toupper(token[1]));
 					if ((file < 'A') || (file > 'L') || file == 'J') {
 						continue;
 					}
 					else {
-						base = (int) file - int('A') + HEX_A1;
+                        base = file - uint8_t('A') + HEX_A1;
 					}
 				}
 				else {
 					continue;
 				}
 				string num = token.substr(2);
-				int rank = 0;
-				std::istringstream intstream(num);
-				intstream >> rank;
+                uint32_t rank = 0;
+                if (!(num.length() > 2 || num.length() == 0)) {
+                    rank = uint32_t(std::stoul(num));
+                }
 				if (rank <= 0) {
 					continue;
 				}

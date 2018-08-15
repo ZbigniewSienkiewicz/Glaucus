@@ -32,8 +32,8 @@
 using std::cout;
 using std::endl;
 
-unsigned int MoveGen::move_top = 0;
-unsigned int MoveGen::move_bottom = 0;
+uint64_t MoveGen::move_top = 0;
+uint64_t MoveGen::move_bottom = 0;
 int MoveGen::game_top = 0;
 bool MoveGen::white_to_move = true;
 
@@ -64,7 +64,7 @@ void MoveGen::reset_move_stack()
 std::string MoveGen::get_moves()
 {
 	std::ostringstream list;
-	for (unsigned int i = move_bottom; i < move_top; ++i) {
+    for (uint64_t i = move_bottom; i < move_top; ++i) {
 		switch (move_stack[i].set[COLOR_PIECE] & 0xFCU) {  // unset color bits
 		case KING:
 			list << " K";
@@ -86,7 +86,7 @@ std::string MoveGen::get_moves()
 
 std::string MoveGen::get_legal_moves()
 {
-	unsigned int legal_moves = remove_unlegal_moves();
+    uint64_t legal_moves = remove_unlegal_moves();
 	if (legal_moves) {
 		return get_moves();
 	}
@@ -100,9 +100,9 @@ std::string MoveGen::get_legal_moves()
 	}
 }
 
-unsigned int MoveGen::remove_unlegal_moves()
+uint64_t MoveGen::remove_unlegal_moves()
 {
-	for (unsigned int i = move_bottom; i < move_top; ++i) {
+    for (uint64_t i = move_bottom; i < move_top; ++i) {
 		if (!make_move(move_stack[i])) {
 			unmake_move();
 			move_stack[i] = move_stack[--move_top];
@@ -164,6 +164,7 @@ bool MoveGen::make_move(move_t &move)
 		switch (move.set[COLOR_PIECE] & 0xFCU) { // unset color bits
 		case KING:
 			Hexbitboard::set_black_king(move.set[PIECE_TO]);
+            break;
 		case KNIGHT:
 			Hexbitboard::unset_black_knight(move.set[PIECE_FROM]);
 			Hexbitboard::set_black_knight(move.set[PIECE_TO]);

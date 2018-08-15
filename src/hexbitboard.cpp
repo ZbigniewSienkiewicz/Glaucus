@@ -35,7 +35,7 @@ bitmaps Hexbitboard::bitboard;
 bitmaps Hexbitboard::bitboard_backup;
 const bits128 Hexbitboard::singlemask(1ULL,0ULL);
 const bits128 Hexbitboard::zeromask(0ULL,0ULL);
-const int Hexbitboard::RANK_WIDTH = 11;
+const uint16_t Hexbitboard::RANK_WIDTH = 11;
 
 Hexbitboard::Hexbitboard()
 {
@@ -63,18 +63,18 @@ void Hexbitboard::clean_bitboards()
 
 bool Hexbitboard::setup_board(string xfen)
 {
-	unsigned int file = 0;
-	unsigned int rank = 0;
-	unsigned int buffer = 0;
-	int step;
+    uint32_t file = 0;
+    uint32_t rank = 0;
+    uint32_t buffer = 0;
+    uint32_t step;
 	men piece = EMPTY;
 	backup_bitboards();
 	clean_bitboards();
 
-	int xfen_length = xfen.length();
+    uint64_t xfen_length = xfen.length();
 	bool xfen_good = true;
 
-	for (int i = 0; i < xfen_length; ++i) {
+    for (uint64_t i = 0; i < xfen_length; ++i) {
 		switch (xfen[i]) {
 		case 'K':
 			piece = WHITE_KING;
@@ -95,7 +95,7 @@ bool Hexbitboard::setup_board(string xfen)
 			continue;
 		case '0': case '1': case '2': case '3': case '4':
 		case '5': case '6': case '7': case '8': case '9':
-			step = (xfen[i] - '0');
+            step = (uint8_t(xfen[i]) - '0');
 			if (!buffer) {
 				buffer = step;
 			}
@@ -130,7 +130,7 @@ bool Hexbitboard::setup_board(string xfen)
 	return true;
 }
 
-bool Hexbitboard::hex_is_ok(const unsigned int file, const unsigned int rank)
+bool Hexbitboard::hex_is_ok(const int64_t file, const int64_t rank)
 {
 	if ((file > 10) || (rank > 10)) {
 		return false;
@@ -185,7 +185,7 @@ bitmaps Hexbitboard::get_bitboards()
 	return bitboard;
 }
 
-bool Hexbitboard::is_set(const unsigned int position)
+bool Hexbitboard::is_set(const uint64_t position)
 {
 	if ((bitboard.black_pieces & (singlemask << position)) || (bitboard.white_pieces & (singlemask << position))) {
 		return true;
@@ -195,7 +195,7 @@ bool Hexbitboard::is_set(const unsigned int position)
 	}
 }
 
-bool Hexbitboard::is_set_white(const unsigned int position)
+bool Hexbitboard::is_set_white(const uint64_t position)
 {
 	if (bitboard.white_pieces & (singlemask << position)) {
 		return true;
@@ -205,7 +205,7 @@ bool Hexbitboard::is_set_white(const unsigned int position)
 	}
 }
 
-bool Hexbitboard::is_set_black(const unsigned int position)
+bool Hexbitboard::is_set_black(const uint64_t position)
 {
 	if (bitboard.black_pieces & (singlemask << position)) {
 		return true;
@@ -215,7 +215,7 @@ bool Hexbitboard::is_set_black(const unsigned int position)
 	}
 }
 
-bool Hexbitboard::is_set_white_king(const unsigned int position)
+bool Hexbitboard::is_set_white_king(const uint64_t position)
 {
 	if (bitboard.white_king & (singlemask << position)) {
 		return true;
@@ -225,7 +225,7 @@ bool Hexbitboard::is_set_white_king(const unsigned int position)
 	}
 }
 
-bool Hexbitboard::is_set_black_king(const unsigned int position)
+bool Hexbitboard::is_set_black_king(const uint64_t position)
 {
 	if (bitboard.black_king & (singlemask << position)) {
 		return true;
@@ -235,7 +235,7 @@ bool Hexbitboard::is_set_black_king(const unsigned int position)
 	}
 }
 
-bool Hexbitboard::is_set_white_knight(const unsigned int position)
+bool Hexbitboard::is_set_white_knight(const uint64_t position)
 {
 	if (bitboard.white_knight & (singlemask << position)) {
 		return true;
@@ -245,7 +245,7 @@ bool Hexbitboard::is_set_white_knight(const unsigned int position)
 	}
 }
 
-bool Hexbitboard::is_set_black_knight(const unsigned int position)
+bool Hexbitboard::is_set_black_knight(const uint64_t position)
 {
 	if (bitboard.black_knight & (singlemask << position)) {
 		return true;
@@ -255,18 +255,18 @@ bool Hexbitboard::is_set_black_knight(const unsigned int position)
 	}
 }
 
-bool Hexbitboard::set_piece(const men piece, const unsigned int file, const unsigned int rank)
+bool Hexbitboard::set_piece(const men piece, const uint32_t file, const uint32_t rank)
 {
 	if (!hex_is_ok(file, rank)) {
 		return false;
 	}
 
-	int pos = (file + HEX_A1) + rank * RANK_WIDTH;
+    uint32_t pos = (file + HEX_A1) + rank * RANK_WIDTH;
 	set_piece(piece, pos);
 	return true;
 }
 
-void Hexbitboard::set_piece(const men piece, const unsigned int position)
+void Hexbitboard::set_piece(const men piece, const uint32_t position)
 {
 	switch (piece) {
 	case EMPTY:
@@ -294,7 +294,7 @@ void Hexbitboard::set_piece(const men piece, const unsigned int position)
 	}
 }
 
-void Hexbitboard::unset_all(const unsigned int position)
+void Hexbitboard::unset_all(const uint64_t position)
 {
 	bits128 mask = ~(singlemask << position);
 	bitboard.white_king &= mask;
@@ -305,32 +305,32 @@ void Hexbitboard::unset_all(const unsigned int position)
 	bitboard.white_pieces &= mask;
 }
 
-void Hexbitboard::set_white_king(const unsigned int position)
+void Hexbitboard::set_white_king(const uint64_t position)
 {
 	bitboard.white_king = (singlemask << position);
 }
 
-void Hexbitboard::set_black_king(const unsigned int position)
+void Hexbitboard::set_black_king(const uint64_t position)
 {
 	bitboard.black_king = (singlemask << position);
 }
 
-void Hexbitboard::set_white_knight(const unsigned int position)
+void Hexbitboard::set_white_knight(const uint64_t position)
 {
 	bitboard.white_knight |= (singlemask << position);
 }
 
-void Hexbitboard::set_black_knight(const unsigned int position)
+void Hexbitboard::set_black_knight(const uint64_t position)
 {
 	bitboard.black_knight |= (singlemask << position);
 }
 
-void Hexbitboard::unset_white_knight(const unsigned int position)
+void Hexbitboard::unset_white_knight(const uint64_t position)
 {
 	bitboard.white_knight &= ~(singlemask << position);
 }
 
-void Hexbitboard::unset_black_knight(const unsigned int position)
+void Hexbitboard::unset_black_knight(const uint64_t position)
 {
 	bitboard.black_knight &= ~(singlemask << position);
 }
@@ -351,7 +351,7 @@ void Hexbitboard::set_black()
 	bitboard.black_pieces = bitboard.black_king | bitboard.black_knight;
 }
 
-void Hexbitboard::set_empty(const unsigned int position)
+void Hexbitboard::set_empty(const uint64_t position)
 {
 	bits128 mask = ~(singlemask << position);
 	if (mask & bitboard.black_pieces) {
@@ -367,7 +367,7 @@ void Hexbitboard::set_empty(const unsigned int position)
 
 }
 
-std::string Hexbitboard::get_men(const unsigned int position)
+std::string Hexbitboard::get_men(const uint64_t position)
 {
 	bits128 test = (singlemask << position);
 	if (bitboard.white_pieces & test) {
@@ -395,9 +395,9 @@ std::string Hexbitboard::get_men(const unsigned int position)
 	return "__";
 }
 
-unsigned int Hexbitboard::get_lsb_and_reset(bits128 &piece)
+uint8_t Hexbitboard::get_lsb_and_reset(bits128 &piece)
 {
-	unsigned int pos;
+    uint8_t pos;
 	if (!piece) {
 		return 0;
 	}
@@ -412,9 +412,9 @@ unsigned int Hexbitboard::get_lsb_and_reset(bits128 &piece)
 	return 0;
 }
 
-unsigned int Hexbitboard::get_lsb(bits128 &piece)
+uint8_t Hexbitboard::get_lsb(bits128 &piece)
 {
-	unsigned int pos;
+    uint8_t pos;
 	if (!piece) {
 		return 0;
 	}
@@ -427,18 +427,18 @@ unsigned int Hexbitboard::get_lsb(bits128 &piece)
 	return 0;
 }
 
-std::string Hexbitboard::pos_to_str(const unsigned int pos)
+std::string Hexbitboard::pos_to_str(const uint8_t pos)
 {
-	int rank = (pos - 10) / 11;
-	int file = (pos - 10) % 11;
-	char f = file + int('a');
+    uint8_t rank = (pos - 10) / 11;
+    uint8_t file = (pos - 10) % 11;
+    unsigned char f = 'a' + file;
 	if (f > 'i') f++;
 	ostringstream field;
 	field << f << (rank+1);
 	return field.str();
 }
 
-bits128 operator<<(bits128 board, unsigned int val)
+bits128 operator<<(bits128 board, uint64_t val)
 {
 	if (val >= 64) {
 		board.hi = board.lo << (val-64);
@@ -451,7 +451,7 @@ bits128 operator<<(bits128 board, unsigned int val)
 	return board;
 }
 
-bits128* operator<<=(bits128 &board, unsigned int val)
+bits128* operator<<=(bits128 &board, uint64_t val)
 {
 	if (val >= 64) {
 		board.hi = board.lo << (val-64);

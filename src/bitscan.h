@@ -3,15 +3,13 @@
 
 #include <inttypes.h>
 
-typedef uint64_t U64;
-
 class Bitscan
 {
 public:
-	static unsigned int get_lsb(U64);
+    static uint8_t get_lsb(uint64_t);
 private:
     Bitscan();
-	 static const int index64[64];
+     static const uint8_t index64[64];
 };
 
 #endif // BITSCAN_H

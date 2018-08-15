@@ -28,8 +28,8 @@
 #include <inttypes.h>
 #include <string>
 
-const unsigned int MOVE_STACK_SIZE = 8192;
-const unsigned int GAME_STACK_SIZE = 1024;
+const uint64_t MOVE_STACK_SIZE = 8192;
+const uint64_t GAME_STACK_SIZE = 1024;
 
 enum piece { KING = 4, KNIGHT = 8, ROOK = 16, BISHOP = 32, QUEEN = 64, PAWN = 128 };
 
@@ -49,7 +49,7 @@ union move_t {
 class MoveGen
 {
 public:
-	static void add_move(const color c, const piece p, const uint8_t from, const uint8_t to);
+    static void add_move(const color c, const piece p, const uint8_t from, const uint8_t to);
 	static void reset_move_stack();
 	static std::string get_moves();
 	static std::string get_legal_moves();
@@ -58,11 +58,11 @@ public:
 	static bool white_to_move;
 private:
 	MoveGen();
-	static unsigned int remove_unlegal_moves();
+    static uint64_t remove_unlegal_moves();
 	static move_t move_stack[MOVE_STACK_SIZE];
 	static move_t game_stack[GAME_STACK_SIZE];
-	static unsigned int move_top;
-	static unsigned int move_bottom;
+    static uint64_t move_top;
+    static uint64_t move_bottom;
 	static int game_top;
 };
 

@@ -39,10 +39,10 @@ class Commands
 {
 public:
 	static void command_init();
-	static void read_commands();
+    [[ noreturn ]] static void read_commands();
 private:
 	static void command_display();
-	static void command_quit();
+    [[ noreturn ]] static void command_quit() ;
 	static void command_help();
 	static void command_new();
 	static void command_edit();
