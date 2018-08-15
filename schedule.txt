@@ -1,0 +1,47 @@
+***function read_commands
+***exit and quit command
+***help command
+***display command
+***Bitboard class
+***king bitboard
+***knight bitboard
+***new command
+***edit command
+***rotate command
+***fen command
+***movegen function
+	***king attacks
+	***knight attacks
+***white command
+***black command
+***pseudo-legal moves command (of king and knights)
+***moves command
+move (usermove) command
+uprościć procedure generate attacks
+zastapić wszystkie wylicenia funkcją filerank_to_pos
+change board representation (as first rotated a1a6)
+evaluation function
+eval command
+minimax search function
+sd command
+go command
+undo command
+perft command
+info command
+force command
+hexboard command (GUI mode)
+implementing rook bitboard,movegen,eval,new,fen
+implementing bishop bitboard,movegen,eval,new,fen
+implementing qeen bitboard,movegen,eval,new,fen
+implementing pawn bitboard,movegen,eval,new,fen
+en passant move
+50 move rule
+3-fold repetition rule
+-----version 0.1 milestone
+quiescence search
+more evaluation
+alpha-beta pruning
+-----version 0.2 milestone
+transposition table
+pawn transposition table
+cache table
