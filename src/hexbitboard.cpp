@@ -140,22 +140,27 @@ bool Hexbitboard::hex_is_ok(const unsigned int file, const unsigned int rank)
 		if (rank > 5) {
 			return false;
 		}
-	case FILE_B: case FILE_K:
+        break;
+    case FILE_B: case FILE_K:
 		if (rank > 6) {
 			return false;
 		}
+        break;
 	case FILE_C: case FILE_I:
 		if (rank > 7) {
 			return false;
 		}
+        break;
 	case FILE_D: case FILE_H:
 		if (rank > 8) {
 			return false;
 		}
+        break;
 	case FILE_E: case FILE_G:
 		if (rank > 9) {
 			return false;
 		}
+        break;
 	default:
 		if (rank > 10) {
 			return false;

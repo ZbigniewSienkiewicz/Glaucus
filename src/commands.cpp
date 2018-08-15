@@ -358,7 +358,7 @@ void Commands::read_commands()
 		};
 		cout.flush();
 		cin >> command_line;
-		command = NULL;
+        command = nullptr;
 		int i = 0;
 		do {
 			if (command_list[i].name == command_line) {
