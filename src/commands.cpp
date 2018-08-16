@@ -29,6 +29,7 @@
 #include "hexbitboard.h"
 #include "attacks.h"
 #include "movegen.h"
+#include "utils.h"
 
 using std::cin;
 using std::cout;
@@ -103,7 +104,8 @@ const command Commands::command_list[] = {
 	{"white"     , command_white     , "white side to move"                     },
 	{"black"     , command_black     , "black side to move"                     },
 	{"moves"     , command_moves     , "list of pseudo legal moves"             },
-	{""          , command_init      , "dummy"                                  }
+    {"attacks"   , command_attacks   , "display board and attacked fields"      },
+    {""          , command_init      , "dummy"                                  }
 };
 
 bool Commands::rotate = false;
@@ -146,6 +148,17 @@ void Commands::command_display()
 
 }
 
+void Commands::command_attacks()
+{
+    if (rotate) {
+        cout << recode_attacks(hexboard_display_rotate) << endl;
+    }
+    else {
+        cout << recode_attacks(hexboard_display_normal) << endl;
+    }
+
+}
+
 std::string Commands::recode_display(std::string hexboard_display)
 {
     for (uint32_t i = 0; i < 12; ++i) {
@@ -162,6 +175,32 @@ std::string Commands::recode_display(std::string hexboard_display)
 		}
 	}
 	return hexboard_display;
+}
+
+std::string Commands::recode_attacks(std::string hexboard_display)
+{
+    std::string hexboard_display_new = recode_display(hexboard_display);
+    bits128 attacks = Attacks::my_attacks();
+    std::string label;
+    Utils::to_binary(attacks, label);
+    cout << label << endl;
+    uint8_t position;
+    while ((position = Hexbitboard::get_lsb_and_reset(attacks))) {
+        string field = Hexbitboard::pos_to_str(position);
+        cout << field << endl;
+        std::string field1 = "";
+        field1 += std::toupper(field[0]);
+        std::string f2 = field.substr(1);
+        uint8_t rank = uint8_t(std::stoul(f2));
+        field1 += char('A' + rank - 1);
+        cout << field << endl;
+        size_t pos = hexboard_display.find(field1);
+        if (pos != string::npos) {
+            hexboard_display_new = hexboard_display_new.replace(pos, 2, "##");
+        }
+    }
+    attacks = Attacks::enemy_attacks();
+    return hexboard_display_new;
 }
 
 void Commands::command_rotate()

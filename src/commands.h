@@ -51,8 +51,10 @@ private:
 	static void command_white();
 	static void command_black();
 	static void command_moves();
-	static std::string recode_display(std::string hexboard_display);
-	static void edit();
+    static void command_attacks();
+    static std::string recode_display(std::string hexboard_display);
+    static std::string recode_attacks(std::string hexboard_display);
+    static void edit();
 	static const std::string ENGINE_NAME;
 	static const command command_list[];
 	static const std::string hexboard_display_normal;

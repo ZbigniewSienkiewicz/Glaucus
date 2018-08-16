@@ -39,6 +39,8 @@ void Attacks::init()
 {
     init_king_attacks(const_cast<bits128*> (king_attacks));
     init_knight_attacks(const_cast<bits128*> (knight_attacks));
+    generate_own_attacks();
+    generate_opponent_attacks();
 }
 
 void Attacks::init_king_attacks(bits128* king_attacks)
