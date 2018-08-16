@@ -195,6 +195,16 @@ bool Hexbitboard::is_set(const uint64_t position)
 	}
 }
 
+bool Hexbitboard::is_set(bits128 bitmap, const uint64_t position)
+{
+    if (bitmap & (singlemask << position)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 bool Hexbitboard::is_set_white(const uint64_t position)
 {
 	if (bitboard.white_pieces & (singlemask << position)) {

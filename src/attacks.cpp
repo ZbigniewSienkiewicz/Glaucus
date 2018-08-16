@@ -298,7 +298,7 @@ void Attacks::init_knight_attacks(bits128* knight_attacks)
     }
 }
 
-void Attacks::generate_attacks()
+void Attacks::generate_moves()
 {
     bitmaps temp = Hexbitboard::get_bitboards();
     MoveGen::reset_move_stack();
@@ -417,19 +417,19 @@ void Attacks::generate_own_attacks()
 
 bool Attacks::position_is_ok()
 {
-    if (!Hexbitboard::black_king()) {
+    if (!Hexbitboard::get_black_king()) {
         return false;
     }
-    if (!Hexbitboard::white_king()) {
+    if (!Hexbitboard::get_white_king()) {
         return false;
     }
     generate_own_attacks();
     if (MoveGen::white_to_move) {
-        if (own_attacks & Hexbitboard::black_king()) {
+        if (own_attacks & Hexbitboard::get_black_king()) {
             return false;
         }
     }
-    else if (own_attacks & Hexbitboard::white_king()) {
+    else if (own_attacks & Hexbitboard::get_white_king()) {
         return false;
     }
     return true;
@@ -440,9 +440,9 @@ bool Attacks::king_is_attacked()
     assert(position_is_ok());
     generate_opponent_attacks();
     if (MoveGen::white_to_move) {
-        return (opponent_attacks & Hexbitboard::white_king());
+        return (opponent_attacks & Hexbitboard::get_white_king());
     }
     else {
-        return (opponent_attacks & Hexbitboard::black_king());
+        return (opponent_attacks & Hexbitboard::get_black_king());
     }
 }

@@ -27,6 +27,7 @@
 
 #include <iostream>
 #include <string>
+#include "hexbitboard.h"
 
 
 struct command {
@@ -53,7 +54,7 @@ private:
 	static void command_moves();
     static void command_attacks();
     static std::string recode_display(std::string hexboard_display);
-    static std::string recode_attacks(std::string hexboard_display);
+    static std::string recode_attacks(const std::string hexboard_display);
     static void edit();
 	static const std::string ENGINE_NAME;
 	static const command command_list[];

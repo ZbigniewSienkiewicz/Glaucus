@@ -122,6 +122,7 @@ public:
 	static void new_game();
 	static void clean_bitboards();
     static bool is_set(const uint64_t position);
+    static bool is_set(bits128 bitmap, const uint64_t position);
     static bool is_set_white(const uint64_t position);
     static bool is_set_black(const uint64_t position);
     static bool is_set_white_king(const uint64_t position);
@@ -142,12 +143,12 @@ public:
 	static void set_white(bits128 mask) { bitboard.white_pieces |= mask; }
 	static void set_black(bits128 mask) { bitboard.black_pieces |= mask; }
     static void set_empty(const uint64_t position);
-	static bits128 white() { return bitboard.white_pieces; }
-	static bits128 black() { return bitboard.black_pieces; }
-	static bits128 white_king() { return bitboard.white_king; }
-	static bits128 black_king() { return bitboard.black_king; }
-	static bits128 white_knight() { return bitboard.white_knight; }
-	static bits128 black_knight() { return bitboard.black_knight; }
+    static bits128 get_white() { return bitboard.white_pieces; }
+    static bits128 get_black() { return bitboard.black_pieces; }
+    static bits128 get_white_king() { return bitboard.white_king; }
+    static bits128 get_black_king() { return bitboard.black_king; }
+    static bits128 get_white_knight() { return bitboard.white_knight; }
+    static bits128 get_black_knight() { return bitboard.black_knight; }
     static std::string get_men(const uint64_t position);
 	static bitmaps get_bitboards();
 	static bool setup_board(const std::string fen);

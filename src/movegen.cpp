@@ -143,7 +143,7 @@ bool MoveGen::make_move(move_t &move)
 		Hexbitboard::set_white();
 		if (Hexbitboard::is_capture()) {
             //cout << "\tmove is capture" << endl;
-			if (Hexbitboard::white() & Hexbitboard::black_knight()) {
+            if (Hexbitboard::get_white() & Hexbitboard::get_black_knight()) {
                 //cout << "\t -N*" << Hexbitboard::pos_to_str(move.set[PIECE_TO]);
 				Hexbitboard::unset_black_knight(move.set[PIECE_TO]);
 				move.set[MOVE_TYPE] |= (CAPTURING | GET_KNIGHT);
@@ -154,7 +154,7 @@ bool MoveGen::make_move(move_t &move)
 		game_stack[game_top++] = move;
 		Attacks::generate_opponent_attacks();
 		white_to_move = !white_to_move;
-		if (Hexbitboard::white_king() & Attacks::enemy_attacks()) {
+        if (Hexbitboard::get_white_king() & Attacks::enemy_attacks()) {
 			cout << "\tmove is illegal" << endl;
 			return false;
 		}
@@ -177,7 +177,7 @@ bool MoveGen::make_move(move_t &move)
 		}
 		Hexbitboard::set_black();
 		if (Hexbitboard::is_capture()) {
-			if (Hexbitboard::black() & Hexbitboard::white_knight()) {
+            if (Hexbitboard::get_black() & Hexbitboard::get_white_knight()) {
 				Hexbitboard::unset_white_knight(move.set[PIECE_TO]);
 				move.set[MOVE_TYPE] |= (CAPTURING | GET_KNIGHT);
 			}
@@ -186,7 +186,7 @@ bool MoveGen::make_move(move_t &move)
 		game_stack[game_top++] = move;
 		Attacks::generate_opponent_attacks();
 		white_to_move = !white_to_move;
-		if (Hexbitboard::black_king() & Attacks::enemy_attacks()) {
+        if (Hexbitboard::get_black_king() & Attacks::enemy_attacks()) {
 			return false;
 		}
 		else {

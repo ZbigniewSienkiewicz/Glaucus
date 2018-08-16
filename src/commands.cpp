@@ -120,8 +120,7 @@ void Commands::command_init()
 	Attacks::init();
 	Commands::rotate = false;
 	MoveGen::reset_move_stack();
-	Attacks::generate_attacks();
-	cout << ENGINE_NAME;
+    cout << ENGINE_NAME;
 }
 
 void Commands::command_quit()
@@ -177,29 +176,48 @@ std::string Commands::recode_display(std::string hexboard_display)
 	return hexboard_display;
 }
 
-std::string Commands::recode_attacks(std::string hexboard_display)
+std::string Commands::recode_attacks(const std::string hexboard_display)
 {
-    std::string hexboard_display_new = recode_display(hexboard_display);
-    bits128 attacks = Attacks::my_attacks();
-    std::string label;
-    Utils::to_binary(attacks, label);
-    cout << label << endl;
-    uint8_t position;
-    while ((position = Hexbitboard::get_lsb_and_reset(attacks))) {
-        string field = Hexbitboard::pos_to_str(position);
-        cout << field << endl;
-        std::string field1 = "";
-        field1 += std::toupper(field[0]);
-        std::string f2 = field.substr(1);
-        uint8_t rank = uint8_t(std::stoul(f2));
-        field1 += char('A' + rank - 1);
-        cout << field << endl;
-        size_t pos = hexboard_display.find(field1);
-        if (pos != string::npos) {
-            hexboard_display_new = hexboard_display_new.replace(pos, 2, "##");
+    std::string hexboard_display_new = hexboard_display;
+    bits128 my_occupied;
+    bits128 enemy_occupied;
+    if (MoveGen::white_to_move) {
+        my_occupied = Hexbitboard::get_white();
+        enemy_occupied = Hexbitboard::get_black();
+    }
+    else {
+        my_occupied = Hexbitboard::get_black();
+        enemy_occupied = Hexbitboard::get_white();
+    }
+    bits128 my_attacks = Attacks::my_attacks() & ~my_occupied;
+    bits128 enemy_attacks = Attacks::enemy_attacks() & ~enemy_occupied;
+    bits128 enemy_attacked = my_attacks & enemy_occupied;
+    bits128 my_attacked = enemy_attacks & my_occupied;
+    for (uint32_t i = 0; i < 12; ++i) {
+        for (uint32_t j = 0; j < 11; ++j) {
+            string piece = "";
+            piece = piece + char(int('A') + i) + char(int('A') + j);
+            size_t pos = hexboard_display.find(piece);
+            if (pos != string::npos) {
+                uint64_t base = HEX_A1 + i + (j * Hexbitboard::RANK_WIDTH);
+                if (i > 8) base--;
+                piece = Hexbitboard::get_men(base);
+                hexboard_display_new = hexboard_display_new.replace(pos, 2, piece);
+                if (Hexbitboard::is_set(my_attacks, base)) {
+                    hexboard_display_new = hexboard_display_new.replace(pos, 2, "##");
+                }
+                if (Hexbitboard::is_set(enemy_attacks, base)) {
+                    hexboard_display_new = hexboard_display_new.replace(pos, 2, "**");
+                }
+                if (Hexbitboard::is_set(enemy_attacked, base)) {
+                    hexboard_display_new = hexboard_display_new.replace(pos, 2, "!!");
+                }
+                if (Hexbitboard::is_set(my_attacked, base)) {
+                    hexboard_display_new = hexboard_display_new.replace(pos, 2, "??");
+                }
+            }
         }
     }
-    attacks = Attacks::enemy_attacks();
     return hexboard_display_new;
 }
 
@@ -213,17 +231,20 @@ void Commands::command_fen()
 {
 	string xfen;
 	cin >> xfen;
+    Hexbitboard::backup_bitboards();
 	if (Hexbitboard::setup_board(xfen))
 	{
 		if (!Attacks::position_is_ok()) { // check if opponent king is not checked
 			cout << "position is illegal\n";
 			Hexbitboard::restore_bitboards();
-		}
+            MoveGen::reset_move_stack();
+            Attacks::init();
+        }
 		else {
 			cout << "position is legal\n";
 			MoveGen::reset_move_stack();
-			Attacks::generate_attacks();
-		}
+            Attacks::init();
+        }
 	}
 }
 
@@ -232,21 +253,24 @@ void Commands::command_new()
 	Hexbitboard::new_game();
 	MoveGen::white_to_move = true;
 	MoveGen::reset_move_stack();
-	Attacks::generate_attacks();
+    Attacks::init();
 }
 
 void Commands::command_edit()
 {
-	edit();
+    Hexbitboard::backup_bitboards();
+    edit();
 	if (!Attacks::position_is_ok()) {
 		cout << "position is illegal\n";
 		Hexbitboard::restore_bitboards();
-	}
+        MoveGen::reset_move_stack();
+        Attacks::init();
+    }
 	else {
 		cout << "position is legal\n";
 		MoveGen::reset_move_stack();
-		Attacks::generate_attacks();
-	}
+        Attacks::init();
+    }
 }
 
 void Commands::edit()
@@ -355,12 +379,14 @@ void Commands::command_white()
 	if (Attacks::position_is_ok()) {
 		cout << "position is legal\n";
 		MoveGen::reset_move_stack();
-		Attacks::generate_attacks();
-	}
+        Attacks::init();
+    }
 	else {
 		cout << "position is illegal\n";
 		MoveGen::white_to_move = false;
-	}
+        MoveGen::reset_move_stack();
+        Attacks::init();
+    }
 }
 
 void Commands::command_black()
@@ -369,16 +395,19 @@ void Commands::command_black()
 	if (Attacks::position_is_ok()) {
 		cout << "position is legal\n";
 		MoveGen::reset_move_stack();
-		Attacks::generate_attacks();
-	}
+        Attacks::init();
+    }
 	else {
 		cout << "position is illegal\n";
 		MoveGen::white_to_move = true;
-	}
+        MoveGen::reset_move_stack();
+        Attacks::init();
+    }
 }
 
 void Commands::command_moves()
 {
+    Attacks::generate_moves();
 	cout << MoveGen::get_legal_moves();
 }
 

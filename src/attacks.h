@@ -35,7 +35,7 @@ public:
 	static const bits128 king_attacks[HEXES_NUMBER_ALIGN];
 	static const bits128 knight_attacks[HEXES_NUMBER_ALIGN];
 	static void init();
-	static void generate_attacks();
+    static void generate_moves();
 	static void generate_opponent_attacks();
 	static void generate_own_attacks();
 	static bool position_is_ok();
