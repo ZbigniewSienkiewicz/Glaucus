@@ -29,7 +29,7 @@
 #include <string>
 #include <iostream>
 
-const uint32_t HEXES_NUMBER_ALIGN = 126;
+//const uint32_t HEXES_NUMBER_ALIGN = 126;
 
 enum hexes_std:uint8_t {
 	HEX_A1=10, HEX_B1=11, HEX_C1=12, HEX_D1=13, HEX_E1=14, HEX_F1=15, HEX_G1=16, HEX_H1=17, HEX_I1=18, HEX_K1=19, HEX_L1=20,

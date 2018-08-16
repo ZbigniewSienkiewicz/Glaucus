@@ -35,7 +35,7 @@ using std::cout;
 using std::endl;
 using std::string;
 
-const string Commands::ENGINE_NAME = "Glaucus, Glinski's hexagonal chess engine\nCopyright(c) by Zbigniew Sienkiewicz, 2011\ntype 'help' for list of commands\n";
+const string Commands::ENGINE_NAME = "Glaucus, Glinski's hexagonal chess engine\nCopyright(c) by Zbigniew Sienkiewicz, 2011, 2018\ntype 'help' for list of commands\n";
 
 const string Commands::hexboard_display_normal =
 	"\n              11  __  11                 \n"

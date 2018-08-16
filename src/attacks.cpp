@@ -54,10 +54,16 @@ void Attacks::init_king_attacks(bits128* king_attacks)
                 continue;
             }
             if (Hexbitboard::hex_is_ok(file, rank+1)) {
-                attack.set(file + HEX_A1 + (rank+1)*Hexbitboard::RANK_WIDTH);
+                int32_t position = file + HEX_A1 + (rank+1)*Hexbitboard::RANK_WIDTH;
+                if (position > 9) {
+                    attack.set(position);
+                }
             }
             if (Hexbitboard::hex_is_ok(file, rank-1)) {
-                attack.set(file + HEX_A1 + (rank-1)*Hexbitboard::RANK_WIDTH);
+                int32_t position = file + HEX_A1 + (rank-1)*Hexbitboard::RANK_WIDTH;
+                if (position > 9) {
+                    attack.set(position);
+                }
             }
             int32_t left, right;
             if (file < FILE_F) {
@@ -75,13 +81,19 @@ void Attacks::init_king_attacks(bits128* king_attacks)
             for (int32_t row = rank-2; row <= rank+1; ++row) {
                 if ((left+right) > 0) {
                     if (Hexbitboard::hex_is_ok(file-1, left+row)) {
-                        attack.set(abs(file-1 + HEX_A1 + (left+row)*Hexbitboard::RANK_WIDTH));
+                        int32_t position = abs(file-1 + HEX_A1 + (left+row)*Hexbitboard::RANK_WIDTH);
+                        if (position > 9) {
+                            attack.set(position);
+                        }
                     }
                 }
             }
             for (int row = rank-2; row <= rank+1; ++row) {
                 if (Hexbitboard::hex_is_ok(file+1, right+row)) {
-                    attack.set(file+1 + HEX_A1 + (right+row)*Hexbitboard::RANK_WIDTH);
+                    int32_t position = file+1 + HEX_A1 + (right+row)*Hexbitboard::RANK_WIDTH;
+                    if (position > 9) {
+                        attack.set(position);
+                    }
                 }
             }
             switch (file) {
@@ -107,10 +119,16 @@ void Attacks::init_king_attacks(bits128* king_attacks)
                 break;
             }
             if (Hexbitboard::hex_is_ok(file-2, rank+left)) {
-                attack.set(file-2 + HEX_A1 + (rank+left)*Hexbitboard::RANK_WIDTH);
+                int32_t position = file-2 + HEX_A1 + (rank+left)*Hexbitboard::RANK_WIDTH;
+                if (position > 9) {
+                    attack.set(position);
+                }
             }
             if (Hexbitboard::hex_is_ok(file+2, rank+right)) {
-                attack.set(file+2 + HEX_A1 + (rank+right)*Hexbitboard::RANK_WIDTH);
+                int32_t position = file+2 + HEX_A1 + (rank+right)*Hexbitboard::RANK_WIDTH;
+                if (position > 9) {
+                    attack.set(position);
+                }
             }
             int64_t pointer = file + HEX_A1 + rank*Hexbitboard::RANK_WIDTH;
             king_attacks[pointer] = attack;
@@ -198,42 +216,78 @@ void Attacks::init_knight_attacks(bits128* knight_attacks)
 
 
             if (Hexbitboard::hex_is_ok(file-1, left1+rank+2)) {
-                attack.set(file-1 + HEX_A1 + (left1+rank+2)*Hexbitboard::RANK_WIDTH);
+                int position = (file-1 + HEX_A1 + (left1+rank+2)*Hexbitboard::RANK_WIDTH);
+                if (position > 9) {
+                    attack.set(position);
+                }
             }
             if (Hexbitboard::hex_is_ok(file-1, left1+rank-3)) {
-                attack.set(file-1 + HEX_A1 + (left1+rank-3)*Hexbitboard::RANK_WIDTH);
+                int position = (file-1 + HEX_A1 + (left1+rank-3)*Hexbitboard::RANK_WIDTH);
+                if (position > 9) {
+                    attack.set(position);
+                }
             }
             if (Hexbitboard::hex_is_ok(file+1, right1+rank+2)) {
-                attack.set(file+1 + HEX_A1 + (right1+rank+2)*Hexbitboard::RANK_WIDTH);
+                int position = (file+1 + HEX_A1 + (right1+rank+2)*Hexbitboard::RANK_WIDTH);
+                if (position > 9) {
+                    attack.set(position);
+                }
             }
             if (Hexbitboard::hex_is_ok(file+1, right1+rank-3)) {
-                attack.set(file+1 + HEX_A1 + (right1+rank-3)*Hexbitboard::RANK_WIDTH);
+                int position = (file+1 + HEX_A1 + (right1+rank-3)*Hexbitboard::RANK_WIDTH);
+                if (position > 9) {
+                    attack.set(position);
+                }
             }
 
             if (Hexbitboard::hex_is_ok(file-2, left2+rank+1)) {
-                attack.set(file-2 + HEX_A1 + (left2+rank+1)*Hexbitboard::RANK_WIDTH);
+                int position = (file-2 + HEX_A1 + (left2+rank+1)*Hexbitboard::RANK_WIDTH);
+                if (position > 9) {
+                    attack.set(position);
+                }
             }
             if (Hexbitboard::hex_is_ok(file-2, left2+rank-3)) {
-                attack.set(file-2 + HEX_A1 + (left2+rank-3)*Hexbitboard::RANK_WIDTH);
+                int position = (file-2 + HEX_A1 + (left2+rank-3)*Hexbitboard::RANK_WIDTH);
+                if (position > 9) {
+                    attack.set(position);
+                }
             }
             if (Hexbitboard::hex_is_ok(file+2, right2+rank+1)) {
-                attack.set(file+2 + HEX_A1 + (right2+rank+1)*Hexbitboard::RANK_WIDTH);
+                int position = (file+2 + HEX_A1 + (right2+rank+1)*Hexbitboard::RANK_WIDTH);
+                if (position > 9) {
+                    attack.set(position);
+                }
             }
             if (Hexbitboard::hex_is_ok(file+2, right2+rank-3)) {
-                attack.set(file+2 + HEX_A1 + (right2+rank-3)*Hexbitboard::RANK_WIDTH);
+                int position = (file+2 + HEX_A1 + (right2+rank-3)*Hexbitboard::RANK_WIDTH);
+                if (position > 9) {
+                    attack.set(position);
+                }
             }
 
             if (Hexbitboard::hex_is_ok(file-3, left3+rank-1)) {
-                attack.set(file-3 + HEX_A1 + (left3+rank-1)*Hexbitboard::RANK_WIDTH);
+                int position = (file-3 + HEX_A1 + (left3+rank-1)*Hexbitboard::RANK_WIDTH);
+                if (position > 9) {
+                    attack.set(position);
+                }
             }
             if (Hexbitboard::hex_is_ok(file-3, left3+rank-2)) {
-                attack.set(file-3 + HEX_A1 + (left3+rank-2)*Hexbitboard::RANK_WIDTH);
+                int position = (file-3 + HEX_A1 + (left3+rank-2)*Hexbitboard::RANK_WIDTH);
+                if (position > 9) {
+                    attack.set(position);
+                }
             }
             if (Hexbitboard::hex_is_ok(file+3, right3+rank-1)) {
-                attack.set(file+3 + HEX_A1 + (right3+rank-1)*Hexbitboard::RANK_WIDTH);
+                int position = (file+3 + HEX_A1 + (right3+rank-1)*Hexbitboard::RANK_WIDTH);
+                if (position > 9) {
+                    attack.set(position);
+                }
             }
             if (Hexbitboard::hex_is_ok(file+3, right3+rank-2)) {
-                attack.set(file+3 + HEX_A1 + (right3+rank-2)*Hexbitboard::RANK_WIDTH);
+                int position = (file+3 + HEX_A1 + (right3+rank-2)*Hexbitboard::RANK_WIDTH);
+                if (position > 9) {
+                    attack.set(position);
+                }
             }
 
             int32_t pointer = file + HEX_A1 + rank*Hexbitboard::RANK_WIDTH;
@@ -254,6 +308,7 @@ void Attacks::generate_attacks()
         pos_from = Hexbitboard::get_lsb(white_king);
         bits128 temp_attacks = king_attacks[pos_from] & ~(temp.white_pieces) &~(temp.black_king);
         while ((pos_to = Hexbitboard::get_lsb_and_reset(temp_attacks))) {
+            assert(pos_to > 9);
             MoveGen::add_move(WHITE, KING, pos_from, pos_to);
         }
 
@@ -262,6 +317,8 @@ void Attacks::generate_attacks()
         while ((pos_from = Hexbitboard::get_lsb_and_reset(white_knight))) {
             temp_attacks = knight_attacks[pos_from] & ~(temp.white_pieces) & ~(temp.black_king);
             while ((pos_to = Hexbitboard::get_lsb_and_reset(temp_attacks))) {
+                assert(pos_from > 9);
+                assert(pos_to > 9);
                 MoveGen::add_move(WHITE, KNIGHT, pos_from, pos_to);
             }
         }

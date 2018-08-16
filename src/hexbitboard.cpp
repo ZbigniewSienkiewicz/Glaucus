@@ -429,12 +429,14 @@ uint8_t Hexbitboard::get_lsb(bits128 &piece)
 
 std::string Hexbitboard::pos_to_str(const uint8_t pos)
 {
+    assert(pos > 9);
     uint8_t rank = (pos - 10) / 11;
     uint8_t file = (pos - 10) % 11;
     unsigned char f = 'a' + file;
 	if (f > 'i') f++;
 	ostringstream field;
 	field << f << (rank+1);
+    //std::cout << "test:" << int(pos) << " " << int(rank+1) << " " << int(file) << " " << field.str() << endl;
 	return field.str();
 }
 

@@ -47,6 +47,8 @@ MoveGen::MoveGen()
 void MoveGen::add_move(const color c, const piece p, const uint8_t from, const uint8_t to)
 {
 	assert(move_top < MOVE_STACK_SIZE);
+    assert(from > 9);
+    assert(to > 9);
 
 	move_stack[move_top].set[COLOR_PIECE] = c | p;
 	move_stack[move_top].set[PIECE_FROM] = from;
@@ -124,30 +126,30 @@ bool MoveGen::make_move(move_t &move)
 	if (move.set[COLOR_PIECE] & WHITE) {
 		switch (move.set[COLOR_PIECE] & 0xFCU) { // unset color bits
 		case KING:
-			cout << " +K" << Hexbitboard::pos_to_str(move.set[PIECE_TO]);
+            //cout << " +K" << Hexbitboard::pos_to_str(move.set[PIECE_TO]);
 			Hexbitboard::set_white_king(move.set[PIECE_TO]);
 			break;
 		case KNIGHT:
-			cout << " -N" << Hexbitboard::pos_to_str(move.set[PIECE_FROM]);
+            //cout << " -N" << Hexbitboard::pos_to_str(move.set[PIECE_FROM]);
 			Hexbitboard::unset_white_knight(move.set[PIECE_FROM]);
-			cout << " +N" << Hexbitboard::pos_to_str(move.set[PIECE_TO]);
+            //cout << " +N" << Hexbitboard::pos_to_str(move.set[PIECE_TO]);
 			Hexbitboard::set_white_knight(move.set[PIECE_TO]);
 			break;
 		default:
 			assert(false);
 			break;
 		}
-		cout << endl;
+        //cout << endl;
 		Hexbitboard::set_white();
 		if (Hexbitboard::is_capture()) {
-			cout << "\tmove is capture" << endl;
+            //cout << "\tmove is capture" << endl;
 			if (Hexbitboard::white() & Hexbitboard::black_knight()) {
-				cout << "\t -N*" << Hexbitboard::pos_to_str(move.set[PIECE_TO]);
+                //cout << "\t -N*" << Hexbitboard::pos_to_str(move.set[PIECE_TO]);
 				Hexbitboard::unset_black_knight(move.set[PIECE_TO]);
 				move.set[MOVE_TYPE] |= (CAPTURING | GET_KNIGHT);
 			}
 			Hexbitboard::set_black();
-			cout << endl;
+            //cout << endl;
 		}
 		game_stack[game_top++] = move;
 		Attacks::generate_opponent_attacks();
@@ -204,28 +206,28 @@ void MoveGen::unmake_move()
         //	  << Hexbitboard::pos_to_str(move.set[PIECE_TO]) << endl;
 		switch (move.set[COLOR_PIECE] & 0xFCU) { // unset color bits
 		case KING:
-			cout << " +K" << Hexbitboard::pos_to_str(move.set[PIECE_FROM]);
+            //cout << " +K" << Hexbitboard::pos_to_str(move.set[PIECE_FROM]);
 			Hexbitboard::set_white_king(move.set[PIECE_FROM]); // restore king position
 			break;
 		case KNIGHT:
-			cout << " -N" << Hexbitboard::pos_to_str(move.set[PIECE_TO]);
+            //cout << " -N" << Hexbitboard::pos_to_str(move.set[PIECE_TO]);
 			Hexbitboard::unset_white_knight(move.set[PIECE_TO]);
-			cout << " +N" << Hexbitboard::pos_to_str(move.set[PIECE_FROM]);
+            //cout << " +N" << Hexbitboard::pos_to_str(move.set[PIECE_FROM]);
 			Hexbitboard::set_white_knight(move.set[PIECE_FROM]); // restore knight position
 			break;
 		default:
 			assert(false);
 			break;
 		}
-		cout << endl;
+        //cout << endl;
 		Hexbitboard::set_white();
 		if (move.set[MOVE_TYPE] & CAPTURING) {
 			if (move.set[MOVE_TYPE] & GET_KNIGHT) {
-				cout << " +N*" << Hexbitboard::pos_to_str(move.set[PIECE_TO]);
+                //cout << " +N*" << Hexbitboard::pos_to_str(move.set[PIECE_TO]);
 				Hexbitboard::set_black_knight(move.set[PIECE_TO]); // restore captured knight
 			}
 			Hexbitboard::set_black();
-			cout << endl;
+            //cout << endl;
 		}
 	}
 	else {

@@ -27,6 +27,8 @@
 
 #include "hexbitboard.h"
 
+const uint32_t HEXES_NUMBER_ALIGN = 126;
+
 class Attacks
 {
 public:
