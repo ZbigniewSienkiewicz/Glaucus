@@ -27,13 +27,13 @@
 
 #include "hexbitboard.h"
 
-const uint32_t HEXES_NUMBER_ALIGN = 126;
+const uint32_t HEXES_NUMBER_MAX = 126;
 
 class Attacks
 {
 public:
-	static const bits128 king_attacks[HEXES_NUMBER_ALIGN];
-	static const bits128 knight_attacks[HEXES_NUMBER_ALIGN];
+	static const bits128 king_attacks[HEXES_NUMBER_MAX];
+	static const bits128 knight_attacks[HEXES_NUMBER_MAX];
 	static void init();
     static void generate_moves();
 	static void generate_opponent_attacks();
@@ -44,8 +44,6 @@ public:
 	static bits128 my_attacks() { return own_attacks; }
 private:
 	 Attacks();
-	 static void init_king_attacks(bits128* king_attacks);
-	 static void init_knight_attacks(bits128* knight_attacks);
 	 static bits128 opponent_attacks;
 	 static bits128 own_attacks;
 };
