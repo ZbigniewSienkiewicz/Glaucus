@@ -38,15 +38,15 @@ enum hexes_std:uint8_t {
 	HEX_A4=43, HEX_B4=44, HEX_C4=45, HEX_D4=46, HEX_E4=47, HEX_F4=48, HEX_G4=49, HEX_H4=50, HEX_I4=51, HEX_K4=52, HEX_L4=53,
 	HEX_A5=54, HEX_B5=55, HEX_C5=56, HEX_D5=57, HEX_E5=58, HEX_F5=59, HEX_G5=60, HEX_H5=61, HEX_I5=62, HEX_K5=63, HEX_L5=64,
 	HEX_A6=65, HEX_B6=66, HEX_C6=67, HEX_D6=68, HEX_E6=69, HEX_F6=70, HEX_G6=71, HEX_H6=72, HEX_I6=73, HEX_K6=74, HEX_L6=75,
-				  HEX_B7=77, HEX_C7=78, HEX_D7=79, HEX_E7=80, HEX_F7=81, HEX_G7=82, HEX_H7=83, HEX_I7=84, HEX_K7=85,
-								 HEX_C8=89, HEX_D8=90, HEX_E8=91, HEX_F8=92, HEX_G8=93, HEX_H8=94, HEX_I8=95,
-												HEX_D9=101,HEX_E9=102,HEX_F9=103,HEX_G9=104,HEX_H9=105,
-															HEX_E10=113,HEX_F10=114,HEX_G10=115,
-																			HEX_F11=125
+	HEX_B7=77, HEX_C7=78, HEX_D7=79, HEX_E7=80, HEX_F7=81, HEX_G7=82, HEX_H7=83, HEX_I7=84, HEX_K7=85,
+	HEX_C8=89, HEX_D8=90, HEX_E8=91, HEX_F8=92, HEX_G8=93, HEX_H8=94, HEX_I8=95,
+	HEX_D9=101,HEX_E9=102,HEX_F9=103,HEX_G9=104,HEX_H9=105,
+	HEX_E10=113,HEX_F10=114,HEX_G10=115,
+	HEX_F11=125
 };
 
 enum men { EMPTY=0, WHITE_KING=1, WHITE_KNIGHT=2, WHITE_BISHOP=4, WHITE_ROOK=8, WHITE_QUEEN=16, WHITE_PAWN=32,
-			  BLACK_KING=64, BLACK_KNIGHT=128, BLACK_BISHOP=256, BLACK_ROOK=512, BLACK_QUEEN=1024, BLACK_PAWN=2056 };
+		   BLACK_KING=64, BLACK_KNIGHT=128, BLACK_BISHOP=256, BLACK_ROOK=512, BLACK_QUEEN=1024, BLACK_PAWN=2056 };
 
 enum files { FILE_A, FILE_B, FILE_C, FILE_D, FILE_E, FILE_F, FILE_G, FILE_H, FILE_I, FILE_K, FILE_L };
 
@@ -54,11 +54,11 @@ enum ranks { RANK_1, RANK_2, RANK_3, RANK_4, RANK_5, RANK_6, RANK_7, RANK_8, RAN
 
 
 struct bits128 {
-    uint64_t lo;
+	uint64_t lo;
 	uint64_t hi;
 	bits128() { lo=0; hi=0; }
 	bits128(uint64_t l, uint64_t h) { lo = l; hi = h; }
-    void set(int32_t position)
+	void set(int32_t position)
 	{
 		if (position > 63) {
 			hi |= (1ULL << (position-64));
@@ -67,7 +67,7 @@ struct bits128 {
 			lo |= (1ULL << position);
 		}
 	}
-    void unset(int32_t position)
+	void unset(int32_t position)
 	{
 		if (position > 63) {
 			hi &= ~(1ULL << (position-64));
@@ -76,7 +76,7 @@ struct bits128 {
 			lo &= ~(1ULL << position);
 		}
 	}
-    bool is_set(int32_t position)
+	bool is_set(int32_t position)
 	{
 		if (position > 63) {
 			if (hi & (1ULL << (position-64))) {
@@ -121,45 +121,45 @@ public:
 	static void init();
 	static void new_game();
 	static void clean_bitboards();
-    static bool is_set(const uint64_t position);
-    static bool is_set(bits128 bitmap, const uint64_t position);
-    static bool is_set_white(const uint64_t position);
-    static bool is_set_black(const uint64_t position);
-    static bool is_set_white_king(const uint64_t position);
-    static bool is_set_white_knight(const uint64_t position);
-    static bool is_set_black_king(const uint64_t position);
-    static bool is_set_black_knight(const uint64_t position);
-    static void set_piece(const men piece, const uint32_t position);
-    static void unset_all(const uint64_t position);
-    static void set_white_king(const uint64_t position);
-    static void set_black_king(const uint64_t position);
-    static void set_white_knight(const uint64_t position);
-    static void set_black_knight(const uint64_t position);
-    static void unset_white_knight(const uint64_t position);
-    static void unset_black_knight(const uint64_t position);
+	static bool is_set(const uint64_t position);
+	static bool is_set(bits128 bitmap, const uint64_t position);
+	static bool is_set_white(const uint64_t position);
+	static bool is_set_black(const uint64_t position);
+	static bool is_set_white_king(const uint64_t position);
+	static bool is_set_white_knight(const uint64_t position);
+	static bool is_set_black_king(const uint64_t position);
+	static bool is_set_black_knight(const uint64_t position);
+	static void set_piece(const men piece, const uint32_t position);
+	static void unset_all(const uint64_t position);
+	static void set_white_king(const uint64_t position);
+	static void set_black_king(const uint64_t position);
+	static void set_white_knight(const uint64_t position);
+	static void set_black_knight(const uint64_t position);
+	static void unset_white_knight(const uint64_t position);
+	static void unset_black_knight(const uint64_t position);
 	static void set_white_black();
 	static void set_white();
 	static void set_black();
 	static void set_white(bits128 mask) { bitboard.white_pieces |= mask; }
 	static void set_black(bits128 mask) { bitboard.black_pieces |= mask; }
-    static void set_empty(const uint64_t position);
-    static bits128 get_white() { return bitboard.white_pieces; }
-    static bits128 get_black() { return bitboard.black_pieces; }
-    static bits128 get_white_king() { return bitboard.white_king; }
-    static bits128 get_black_king() { return bitboard.black_king; }
-    static bits128 get_white_knight() { return bitboard.white_knight; }
-    static bits128 get_black_knight() { return bitboard.black_knight; }
-    static std::string get_men(const uint64_t position);
+	static void set_empty(const uint64_t position);
+	static bits128 get_white() { return bitboard.white_pieces; }
+	static bits128 get_black() { return bitboard.black_pieces; }
+	static bits128 get_white_king() { return bitboard.white_king; }
+	static bits128 get_black_king() { return bitboard.black_king; }
+	static bits128 get_white_knight() { return bitboard.white_knight; }
+	static bits128 get_black_knight() { return bitboard.black_knight; }
+	static std::string get_men(const uint64_t position);
 	static bitmaps get_bitboards();
 	static bool setup_board(const std::string fen);
-    static bool hex_is_ok(const int64_t file, const int64_t rank);
-    static uint8_t get_lsb_and_reset(bits128 &piece);
-    static uint8_t get_lsb(bits128 &piece);
-    static std::string pos_to_str(const uint8_t pos);
+	static bool hex_is_ok(const int64_t file, const int64_t rank);
+	static uint8_t get_lsb_and_reset(bits128 &piece);
+	static uint8_t get_lsb(bits128 &piece);
+	static std::string pos_to_str(const uint8_t pos);
 	static bool is_capture() { return (bitboard.white_pieces & bitboard.black_pieces); }
 	static void backup_bitboards();
 	static void restore_bitboards();
-    static const uint16_t RANK_WIDTH;
+	static const uint16_t RANK_WIDTH;
 
 private:
 	Hexbitboard(); // so far private
@@ -167,7 +167,7 @@ private:
 	static const bits128 zeromask;
 	static bitmaps bitboard;
 	static bitmaps bitboard_backup;
-    static bool set_piece(const men piece, const uint32_t file, const uint32_t rank);
+	static bool set_piece(const men piece, const uint32_t file, const uint32_t rank);
 };
 
 

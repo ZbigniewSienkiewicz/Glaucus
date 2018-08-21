@@ -39,56 +39,56 @@ using std::string;
 const string Commands::ENGINE_NAME = "Glaucus, Glinski's hexagonal chess engine\nCopyright(c) by Zbigniew Sienkiewicz, 2011, 2018\ntype 'help' for list of commands\n";
 
 const string Commands::hexboard_display_normal =
-	"\n              11  __  11                 \n"
-	"           10  __/  \\__  10               \n"
-	"         9  __/. \\FK/. \\__  9            \n"
-	"      8  __/+ \\EJ/+ \\GJ/+ \\__  8        \n"
-	"   7  __/  \\DI/  \\FJ/  \\HI/  \\__  7    \n"
-	"   __/. \\CH/. \\EI/. \\GI/. \\IH/. \\__   \n"
-	" 6/+ \\BG/+ \\DH/+ \\FI/+ \\HH/+ \\KG/+ \\6\n"
-	"  \\AF/  \\CG/  \\EH/  \\GH/  \\IG/  \\LF/ \n"
-	" 5/. \\BF/. \\DG/. \\FH/. \\HG/. \\KF/. \\5\n"
-	"  \\AE/+ \\CF/+ \\EG/+ \\GG/+ \\IF/+ \\LE/ \n"
-	" 4/  \\BE/  \\DF/  \\FG/  \\HF/  \\KE/  \\4\n"
-	"  \\AD/. \\CE/. \\EF/. \\GF/. \\IE/. \\LD/ \n"
-	" 3/+ \\BD/+ \\DE/+ \\FF/+ \\HE/+ \\KD/+ \\3\n"
-	"  \\AC/  \\CD/  \\EE/  \\GE/  \\ID/  \\LC/ \n"
-	" 2/. \\BC/. \\DD/. \\FE/. \\HD/. \\KC/. \\2\n"
-	"  \\AB/+ \\CC/+ \\ED/+ \\GD/+ \\IC/+ \\LB/ \n"
-	" 1/  \\BB/  \\DC/  \\FD/  \\HC/  \\KB/  \\1\n"
-	"  \\AA/. \\CB/. \\EC/. \\GC/. \\IB/. \\LA/ \n"
-	"   a \\BA/+ \\DB/+ \\FC/+ \\HB/+ \\KA/l    \n"
-	"      b \\CA/  \\EB/  \\GB/  \\IA/k        \n"
-	"         c \\DA/. \\FB/. \\HA/i            \n"
-	"            d \\EA/+ \\GA/h                \n"
-	"               e \\FA/g                    \n"
-	"                  f                        \n";
+		"\n              11  __  11                 \n"
+		"           10  __/  \\__  10               \n"
+		"         9  __/. \\FK/. \\__  9            \n"
+		"      8  __/+ \\EJ/+ \\GJ/+ \\__  8        \n"
+		"   7  __/  \\DI/  \\FJ/  \\HI/  \\__  7    \n"
+		"   __/. \\CH/. \\EI/. \\GI/. \\IH/. \\__   \n"
+		" 6/+ \\BG/+ \\DH/+ \\FI/+ \\HH/+ \\KG/+ \\6\n"
+		"  \\AF/  \\CG/  \\EH/  \\GH/  \\IG/  \\LF/ \n"
+		" 5/. \\BF/. \\DG/. \\FH/. \\HG/. \\KF/. \\5\n"
+		"  \\AE/+ \\CF/+ \\EG/+ \\GG/+ \\IF/+ \\LE/ \n"
+		" 4/  \\BE/  \\DF/  \\FG/  \\HF/  \\KE/  \\4\n"
+		"  \\AD/. \\CE/. \\EF/. \\GF/. \\IE/. \\LD/ \n"
+		" 3/+ \\BD/+ \\DE/+ \\FF/+ \\HE/+ \\KD/+ \\3\n"
+		"  \\AC/  \\CD/  \\EE/  \\GE/  \\ID/  \\LC/ \n"
+		" 2/. \\BC/. \\DD/. \\FE/. \\HD/. \\KC/. \\2\n"
+		"  \\AB/+ \\CC/+ \\ED/+ \\GD/+ \\IC/+ \\LB/ \n"
+		" 1/  \\BB/  \\DC/  \\FD/  \\HC/  \\KB/  \\1\n"
+		"  \\AA/. \\CB/. \\EC/. \\GC/. \\IB/. \\LA/ \n"
+		"   a \\BA/+ \\DB/+ \\FC/+ \\HB/+ \\KA/l    \n"
+		"      b \\CA/  \\EB/  \\GB/  \\IA/k        \n"
+		"         c \\DA/. \\FB/. \\HA/i            \n"
+		"            d \\EA/+ \\GA/h                \n"
+		"               e \\FA/g                    \n"
+		"                  f                        \n";
 
 const string Commands::hexboard_display_rotate =
-	"\n                  f                      \n"
-	"               g  __  e                    \n"
-	"            h  __/+ \\__  d                \n"
-	"         i  __/. \\FA/. \\__  c            \n"
-	"      k  __/  \\GA/  \\EA/  \\__  b        \n"
-	"   l  __/+ \\HA/+ \\FB/+ \\DA/+ \\__  a    \n"
-	"   __/. \\IA/. \\GB/. \\EB/. \\CA/. \\__   \n"
-	"  /  \\KA/  \\HB/  \\FC/  \\DB/  \\BA/  \\ \n"
-	" 1\\LA/+ \\IB/+ \\GC/+ \\EC/+ \\CB/+ \\AA/1\n"
-	"  /. \\KB/. \\HC/. \\FD/. \\DC/. \\BB/. \\ \n"
-	" 2\\LB/  \\IC/  \\GD/  \\ED/  \\CC/  \\AB/2\n"
-	"  /+ \\KC/+ \\HD/+ \\FE/+ \\DD/+ \\BC/+ \\ \n"
-	" 3\\LC/. \\ID/. \\GE/. \\EE/. \\CD/. \\AC/3\n"
-	"  /  \\KD/  \\HE/  \\FF/  \\DE/  \\BD/  \\ \n"
-	" 4\\LD/+ \\IE/+ \\GF/+ \\EF/+ \\CE/+ \\AD/4\n"
-	"  /. \\KE/. \\HF/. \\FG/. \\DF/. \\BE/. \\ \n"
-	" 5\\LE/  \\IF/  \\GG/  \\EG/  \\CF/  \\AE/5\n"
-	"  /+ \\KF/+ \\HG/+ \\FH/+ \\DG/+ \\BF/+ \\ \n"
-	" 6\\LF/. \\IG/. \\GH/. \\EH/. \\CG/. \\AF/6\n"
-	"    7\\KG/  \\HH/  \\FI/  \\DH/  \\BG/7    \n"
-	"       8\\IH/+ \\GI/+ \\EI/+ \\CH/8        \n"
-	"          9\\HI/. \\FJ/. \\DI/9            \n"
-	"            10\\GJ/  \\EJ/10               \n"
-	"               11\\FK/11                   \n";
+		"\n                  f                      \n"
+		"               g  __  e                    \n"
+		"            h  __/+ \\__  d                \n"
+		"         i  __/. \\FA/. \\__  c            \n"
+		"      k  __/  \\GA/  \\EA/  \\__  b        \n"
+		"   l  __/+ \\HA/+ \\FB/+ \\DA/+ \\__  a    \n"
+		"   __/. \\IA/. \\GB/. \\EB/. \\CA/. \\__   \n"
+		"  /  \\KA/  \\HB/  \\FC/  \\DB/  \\BA/  \\ \n"
+		" 1\\LA/+ \\IB/+ \\GC/+ \\EC/+ \\CB/+ \\AA/1\n"
+		"  /. \\KB/. \\HC/. \\FD/. \\DC/. \\BB/. \\ \n"
+		" 2\\LB/  \\IC/  \\GD/  \\ED/  \\CC/  \\AB/2\n"
+		"  /+ \\KC/+ \\HD/+ \\FE/+ \\DD/+ \\BC/+ \\ \n"
+		" 3\\LC/. \\ID/. \\GE/. \\EE/. \\CD/. \\AC/3\n"
+		"  /  \\KD/  \\HE/  \\FF/  \\DE/  \\BD/  \\ \n"
+		" 4\\LD/+ \\IE/+ \\GF/+ \\EF/+ \\CE/+ \\AD/4\n"
+		"  /. \\KE/. \\HF/. \\FG/. \\DF/. \\BE/. \\ \n"
+		" 5\\LE/  \\IF/  \\GG/  \\EG/  \\CF/  \\AE/5\n"
+		"  /+ \\KF/+ \\HG/+ \\FH/+ \\DG/+ \\BF/+ \\ \n"
+		" 6\\LF/. \\IG/. \\GH/. \\EH/. \\CG/. \\AF/6\n"
+		"    7\\KG/  \\HH/  \\FI/  \\DH/  \\BG/7    \n"
+		"       8\\IH/+ \\GI/+ \\EI/+ \\CH/8        \n"
+		"          9\\HI/. \\FJ/. \\DI/9            \n"
+		"            10\\GJ/  \\EJ/10               \n"
+		"               11\\FK/11                   \n";
 
 
 const command Commands::command_list[] = {
@@ -104,8 +104,8 @@ const command Commands::command_list[] = {
 	{"white"     , command_white     , "white side to move"                     },
 	{"black"     , command_black     , "black side to move"                     },
 	{"moves"     , command_moves     , "list of pseudo legal moves"             },
-    {"attacks"   , command_attacks   , "display board and attacked fields"      },
-    {""          , command_init      , "dummy"                                  }
+	{"attacks"   , command_attacks   , "display board and attacked fields"      },
+	{""          , command_init      , "dummy"                                  }
 };
 
 bool Commands::rotate = false;
@@ -120,7 +120,7 @@ void Commands::command_init()
 	Attacks::init();
 	Commands::rotate = false;
 	MoveGen::reset_move_stack();
-    cout << ENGINE_NAME;
+	cout << ENGINE_NAME;
 }
 
 void Commands::command_quit()
@@ -149,27 +149,27 @@ void Commands::command_display()
 
 void Commands::command_attacks()
 {
-    if (rotate) {
-        cout << recode_attacks(hexboard_display_rotate) << endl;
-    }
-    else {
-        cout << recode_attacks(hexboard_display_normal) << endl;
-    }
+	if (rotate) {
+		cout << recode_attacks(hexboard_display_rotate) << endl;
+	}
+	else {
+		cout << recode_attacks(hexboard_display_normal) << endl;
+	}
 
 }
 
 std::string Commands::recode_display(std::string hexboard_display)
 {
-    for (uint32_t i = 0; i < 12; ++i) {
-        for (uint32_t j = 0; j < 11; ++j) {
+	for (uint32_t i = 0; i < 12; ++i) {
+		for (uint32_t j = 0; j < 11; ++j) {
 			string piece = "";
 			piece = piece + char(int('A') + i) + char(int('A') + j);
-            size_t pos = hexboard_display.find(piece);
+			size_t pos = hexboard_display.find(piece);
 			if (pos != string::npos) {
-                uint64_t base = HEX_A1 + i + (j * Hexbitboard::RANK_WIDTH);
+				uint64_t base = HEX_A1 + i + (j * Hexbitboard::RANK_WIDTH);
 				if (i > 8) base--;
 				piece = Hexbitboard::get_men(base);
-                hexboard_display = hexboard_display.replace(pos, 2, piece);
+				hexboard_display = hexboard_display.replace(pos, 2, piece);
 			}
 		}
 	}
@@ -178,47 +178,47 @@ std::string Commands::recode_display(std::string hexboard_display)
 
 std::string Commands::recode_attacks(const std::string hexboard_display)
 {
-    std::string hexboard_display_new = hexboard_display;
-    bits128 my_occupied;
-    bits128 enemy_occupied;
-    if (MoveGen::white_to_move) {
-        my_occupied = Hexbitboard::get_white();
-        enemy_occupied = Hexbitboard::get_black();
-    }
-    else {
-        my_occupied = Hexbitboard::get_black();
-        enemy_occupied = Hexbitboard::get_white();
-    }
-    bits128 my_attacks = Attacks::my_attacks() & ~my_occupied;
-    bits128 enemy_attacks = Attacks::enemy_attacks() & ~enemy_occupied;
-    bits128 enemy_attacked = my_attacks & enemy_occupied;
-    bits128 my_attacked = enemy_attacks & my_occupied;
-    for (uint32_t i = 0; i < 12; ++i) {
-        for (uint32_t j = 0; j < 11; ++j) {
-            string piece = "";
-            piece = piece + char(int('A') + i) + char(int('A') + j);
-            size_t pos = hexboard_display.find(piece);
-            if (pos != string::npos) {
-                uint64_t base = HEX_A1 + i + (j * Hexbitboard::RANK_WIDTH);
-                if (i > 8) base--;
-                piece = Hexbitboard::get_men(base);
-                hexboard_display_new = hexboard_display_new.replace(pos, 2, piece);
-                if (Hexbitboard::is_set(my_attacks, base)) {
-                    hexboard_display_new = hexboard_display_new.replace(pos, 2, "##");
-                }
-                if (Hexbitboard::is_set(enemy_attacks, base)) {
-                    hexboard_display_new = hexboard_display_new.replace(pos, 2, "**");
-                }
-                if (Hexbitboard::is_set(enemy_attacked, base)) {
-                    hexboard_display_new = hexboard_display_new.replace(pos, 2, "!!");
-                }
-                if (Hexbitboard::is_set(my_attacked, base)) {
-                    hexboard_display_new = hexboard_display_new.replace(pos, 2, "??");
-                }
-            }
-        }
-    }
-    return hexboard_display_new;
+	std::string hexboard_display_new = hexboard_display;
+	bits128 my_occupied;
+	bits128 enemy_occupied;
+	if (MoveGen::white_to_move) {
+		my_occupied = Hexbitboard::get_white();
+		enemy_occupied = Hexbitboard::get_black();
+	}
+	else {
+		my_occupied = Hexbitboard::get_black();
+		enemy_occupied = Hexbitboard::get_white();
+	}
+	bits128 my_attacks = Attacks::my_attacks() & ~my_occupied;
+	bits128 enemy_attacks = Attacks::enemy_attacks() & ~enemy_occupied;
+	bits128 enemy_attacked = my_attacks & enemy_occupied;
+	bits128 my_attacked = enemy_attacks & my_occupied;
+	for (uint32_t i = 0; i < 12; ++i) {
+		for (uint32_t j = 0; j < 11; ++j) {
+			string piece = "";
+			piece = piece + char(int('A') + i) + char(int('A') + j);
+			size_t pos = hexboard_display.find(piece);
+			if (pos != string::npos) {
+				uint64_t base = HEX_A1 + i + (j * Hexbitboard::RANK_WIDTH);
+				if (i > 8) base--;
+				piece = Hexbitboard::get_men(base);
+				hexboard_display_new = hexboard_display_new.replace(pos, 2, piece);
+				if (Hexbitboard::is_set(my_attacks, base)) {
+					hexboard_display_new = hexboard_display_new.replace(pos, 2, "##");
+				}
+				if (Hexbitboard::is_set(enemy_attacks, base)) {
+					hexboard_display_new = hexboard_display_new.replace(pos, 2, "**");
+				}
+				if (Hexbitboard::is_set(enemy_attacked, base)) {
+					hexboard_display_new = hexboard_display_new.replace(pos, 2, "!!");
+				}
+				if (Hexbitboard::is_set(my_attacked, base)) {
+					hexboard_display_new = hexboard_display_new.replace(pos, 2, "??");
+				}
+			}
+		}
+	}
+	return hexboard_display_new;
 }
 
 void Commands::command_rotate()
@@ -231,20 +231,20 @@ void Commands::command_fen()
 {
 	string xfen;
 	cin >> xfen;
-    Hexbitboard::backup_bitboards();
+	Hexbitboard::backup_bitboards();
 	if (Hexbitboard::setup_board(xfen))
 	{
 		if (!Attacks::position_is_ok()) { // check if opponent king is not checked
 			cout << "position is illegal\n";
 			Hexbitboard::restore_bitboards();
-            MoveGen::reset_move_stack();
-            Attacks::init();
-        }
+			MoveGen::reset_move_stack();
+			Attacks::init();
+		}
 		else {
 			cout << "position is legal\n";
 			MoveGen::reset_move_stack();
-            Attacks::init();
-        }
+			Attacks::init();
+		}
 	}
 }
 
@@ -253,24 +253,24 @@ void Commands::command_new()
 	Hexbitboard::new_game();
 	MoveGen::white_to_move = true;
 	MoveGen::reset_move_stack();
-    Attacks::init();
+	Attacks::init();
 }
 
 void Commands::command_edit()
 {
-    Hexbitboard::backup_bitboards();
-    edit();
+	Hexbitboard::backup_bitboards();
+	edit();
 	if (!Attacks::position_is_ok()) {
 		cout << "position is illegal\n";
 		Hexbitboard::restore_bitboards();
-        MoveGen::reset_move_stack();
-        Attacks::init();
-    }
+		MoveGen::reset_move_stack();
+		Attacks::init();
+	}
 	else {
 		cout << "position is legal\n";
 		MoveGen::reset_move_stack();
-        Attacks::init();
-    }
+		Attacks::init();
+	}
 }
 
 void Commands::edit()
@@ -280,8 +280,8 @@ void Commands::edit()
 	string edit_line;
 	string token;
 	men piece;
-    uint32_t base;
-    unsigned char file;
+	uint32_t base;
+	unsigned char file;
 	cout << "type '.' to exit, 'c' to change color\n";
 	std::getline(cin, edit_line);
 	for (;;) {
@@ -305,7 +305,7 @@ void Commands::edit()
 				Hexbitboard::clean_bitboards();
 			}
 			else {
-                switch (std::toupper(token[0])) {
+				switch (std::toupper(token[0])) {
 				case 'K':
 					piece = edit_white ? WHITE_KING : BLACK_KING;
 					break;
@@ -320,22 +320,22 @@ void Commands::edit()
 					continue;
 				}
 				if (token.length() > 2) {
-                    file = uint8_t(std::toupper(token[1]));
+					file = uint8_t(std::toupper(token[1]));
 					if ((file < 'A') || (file > 'L') || file == 'J') {
 						continue;
 					}
 					else {
-                        base = file - uint8_t('A') + HEX_A1;
+						base = file - uint8_t('A') + HEX_A1;
 					}
 				}
 				else {
 					continue;
 				}
 				string num = token.substr(2);
-                uint32_t rank = 0;
-                if (!(num.length() > 2 || num.length() == 0)) {
-                    rank = uint32_t(std::stoul(num));
-                }
+				uint32_t rank = 0;
+				if (!(num.length() > 2 || num.length() == 0)) {
+					rank = uint32_t(std::stoul(num));
+				}
 				if (rank <= 0) {
 					continue;
 				}
@@ -379,14 +379,14 @@ void Commands::command_white()
 	if (Attacks::position_is_ok()) {
 		cout << "position is legal\n";
 		MoveGen::reset_move_stack();
-        Attacks::init();
-    }
+		Attacks::init();
+	}
 	else {
 		cout << "position is illegal\n";
 		MoveGen::white_to_move = false;
-        MoveGen::reset_move_stack();
-        Attacks::init();
-    }
+		MoveGen::reset_move_stack();
+		Attacks::init();
+	}
 }
 
 void Commands::command_black()
@@ -395,19 +395,19 @@ void Commands::command_black()
 	if (Attacks::position_is_ok()) {
 		cout << "position is legal\n";
 		MoveGen::reset_move_stack();
-        Attacks::init();
-    }
+		Attacks::init();
+	}
 	else {
 		cout << "position is illegal\n";
 		MoveGen::white_to_move = true;
-        MoveGen::reset_move_stack();
-        Attacks::init();
-    }
+		MoveGen::reset_move_stack();
+		Attacks::init();
+	}
 }
 
 void Commands::command_moves()
 {
-    Attacks::generate_moves();
+	Attacks::generate_moves();
 	cout << MoveGen::get_legal_moves();
 }
 
@@ -425,7 +425,7 @@ void Commands::read_commands()
 		};
 		cout.flush();
 		cin >> command_line;
-        command = nullptr;
+		command = nullptr;
 		int i = 0;
 		do {
 			if (command_list[i].name == command_line) {

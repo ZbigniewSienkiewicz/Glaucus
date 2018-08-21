@@ -35,7 +35,7 @@ public:
 	static const bits128 king_attacks[HEXES_NUMBER_MAX];
 	static const bits128 knight_attacks[HEXES_NUMBER_MAX];
 	static void init();
-    static void generate_moves();
+	static void generate_moves();
 	static void generate_opponent_attacks();
 	static void generate_own_attacks();
 	static bool position_is_ok();
@@ -43,9 +43,9 @@ public:
 	static bits128 enemy_attacks() { return opponent_attacks; }
 	static bits128 my_attacks() { return own_attacks; }
 private:
-	 Attacks();
-	 static bits128 opponent_attacks;
-	 static bits128 own_attacks;
+	Attacks();
+	static bits128 opponent_attacks;
+	static bits128 own_attacks;
 };
 
 #endif // ATTACKS_H

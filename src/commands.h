@@ -40,10 +40,10 @@ class Commands
 {
 public:
 	static void command_init();
-    [[ noreturn ]] static void read_commands();
+	[[ noreturn ]] static void read_commands();
 private:
 	static void command_display();
-    [[ noreturn ]] static void command_quit() ;
+	[[ noreturn ]] static void command_quit() ;
 	static void command_help();
 	static void command_new();
 	static void command_edit();
@@ -52,10 +52,10 @@ private:
 	static void command_white();
 	static void command_black();
 	static void command_moves();
-    static void command_attacks();
-    static std::string recode_display(std::string hexboard_display);
-    static std::string recode_attacks(const std::string hexboard_display);
-    static void edit();
+	static void command_attacks();
+	static std::string recode_display(std::string hexboard_display);
+	static std::string recode_attacks(const std::string hexboard_display);
+	static void edit();
 	static const std::string ENGINE_NAME;
 	static const command command_list[];
 	static const std::string hexboard_display_normal;

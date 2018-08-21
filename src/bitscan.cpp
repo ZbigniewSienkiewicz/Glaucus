@@ -25,8 +25,8 @@ Bitscan::Bitscan()
  */
 uint8_t Bitscan::get_lsb(uint64_t bb)
 {
-    const uint64_t debruijn64 = 0x07EDD5E59A4E28C2ULL;
+	const uint64_t debruijn64 = 0x07EDD5E59A4E28C2ULL;
 	assert (bb != 0);
-    //assert(index64[((bb & -bb) * debruijn64) >> 58] > 9);
+	//assert(index64[((bb & -bb) * debruijn64) >> 58] > 9);
 	return index64[((bb & -bb) * debruijn64) >> 58];
 }

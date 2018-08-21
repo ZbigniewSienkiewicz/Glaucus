@@ -31,9 +31,9 @@
 
 namespace Utils
 {
-	void to_binary(const uint64_t);
-	void to_binary(const uint64_t, const std::string label);
-	void to_binary(const bits128, const std::string label);
+void to_binary(const uint64_t);
+void to_binary(const uint64_t, const std::string label);
+void to_binary(const bits128, const std::string label);
 }
 
 #endif // UTILS_H

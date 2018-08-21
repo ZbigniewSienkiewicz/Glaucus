@@ -39,7 +39,7 @@ enum move_type { COLOR_PIECE = 0, PIECE_FROM = 1, PIECE_TO = 2, MOVE_TYPE = 3 };
 
 enum en_passant_promotion_capturing
 { EN_PASSANT_LEFT = 1, EN_PASSANT_RIGHT = 2, CAPTURING = 4, GET_KNIGHT = 8, GET_ROOK = 16,
-  GET_BISHOP = 32, GET_QUEEN = 64, GET_PAWN = 128 };
+	GET_BISHOP = 32, GET_QUEEN = 64, GET_PAWN = 128 };
 
 union move_t {
 	uint8_t set[4];
@@ -58,11 +58,11 @@ public:
 	static bool white_to_move;
 private:
 	MoveGen();
-    static uint64_t remove_unlegal_moves();
+	static uint64_t remove_unlegal_moves();
 	static move_t move_stack[MOVE_STACK_SIZE];
 	static move_t game_stack[GAME_STACK_SIZE];
-    static uint64_t move_top;
-    static uint64_t move_bottom;
+	static uint64_t move_top;
+	static uint64_t move_bottom;
 	static int game_top;
 };
 

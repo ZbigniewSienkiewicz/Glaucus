@@ -63,18 +63,18 @@ void Hexbitboard::clean_bitboards()
 
 bool Hexbitboard::setup_board(string xfen)
 {
-    uint32_t file = 0;
-    uint32_t rank = 0;
-    uint32_t buffer = 0;
-    uint32_t step;
+	uint32_t file = 0;
+	uint32_t rank = 0;
+	uint32_t buffer = 0;
+	uint32_t step;
 	men piece = EMPTY;
 	backup_bitboards();
 	clean_bitboards();
 
-    uint64_t xfen_length = xfen.length();
+	uint64_t xfen_length = xfen.length();
 	bool xfen_good = true;
 
-    for (uint64_t i = 0; i < xfen_length; ++i) {
+	for (uint64_t i = 0; i < xfen_length; ++i) {
 		switch (xfen[i]) {
 		case 'K':
 			piece = WHITE_KING;
@@ -95,7 +95,7 @@ bool Hexbitboard::setup_board(string xfen)
 			continue;
 		case '0': case '1': case '2': case '3': case '4':
 		case '5': case '6': case '7': case '8': case '9':
-            step = (uint8_t(xfen[i]) - '0');
+			step = (uint8_t(xfen[i]) - '0');
 			if (!buffer) {
 				buffer = step;
 			}
@@ -140,27 +140,27 @@ bool Hexbitboard::hex_is_ok(const int64_t file, const int64_t rank)
 		if (rank > 5) {
 			return false;
 		}
-        break;
-    case FILE_B: case FILE_K:
+		break;
+	case FILE_B: case FILE_K:
 		if (rank > 6) {
 			return false;
 		}
-        break;
+		break;
 	case FILE_C: case FILE_I:
 		if (rank > 7) {
 			return false;
 		}
-        break;
+		break;
 	case FILE_D: case FILE_H:
 		if (rank > 8) {
 			return false;
 		}
-        break;
+		break;
 	case FILE_E: case FILE_G:
 		if (rank > 9) {
 			return false;
 		}
-        break;
+		break;
 	default:
 		if (rank > 10) {
 			return false;
@@ -197,12 +197,12 @@ bool Hexbitboard::is_set(const uint64_t position)
 
 bool Hexbitboard::is_set(bits128 bitmap, const uint64_t position)
 {
-    if (bitmap & (singlemask << position)) {
-        return true;
-    }
-    else {
-        return false;
-    }
+	if (bitmap & (singlemask << position)) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 bool Hexbitboard::is_set_white(const uint64_t position)
@@ -271,7 +271,7 @@ bool Hexbitboard::set_piece(const men piece, const uint32_t file, const uint32_t
 		return false;
 	}
 
-    uint32_t pos = (file + HEX_A1) + rank * RANK_WIDTH;
+	uint32_t pos = (file + HEX_A1) + rank * RANK_WIDTH;
 	set_piece(piece, pos);
 	return true;
 }
@@ -407,7 +407,7 @@ std::string Hexbitboard::get_men(const uint64_t position)
 
 uint8_t Hexbitboard::get_lsb_and_reset(bits128 &piece)
 {
-    uint8_t pos;
+	uint8_t pos;
 	if (!piece) {
 		return 0;
 	}
@@ -424,7 +424,7 @@ uint8_t Hexbitboard::get_lsb_and_reset(bits128 &piece)
 
 uint8_t Hexbitboard::get_lsb(bits128 &piece)
 {
-    uint8_t pos;
+	uint8_t pos;
 	if (!piece) {
 		return 0;
 	}
@@ -439,14 +439,14 @@ uint8_t Hexbitboard::get_lsb(bits128 &piece)
 
 std::string Hexbitboard::pos_to_str(const uint8_t pos)
 {
-    assert(pos > 9);
-    uint8_t rank = (pos - 10) / 11;
-    uint8_t file = (pos - 10) % 11;
-    unsigned char f = 'a' + file;
+	assert(pos > 9);
+	uint8_t rank = (pos - 10) / 11;
+	uint8_t file = (pos - 10) % 11;
+	unsigned char f = 'a' + file;
 	if (f > 'i') f++;
 	ostringstream field;
 	field << f << (rank+1);
-    //std::cout << "test:" << int(pos) << " " << int(rank+1) << " " << int(file) << " " << field.str() << endl;
+	//std::cout << "test:" << int(pos) << " " << int(rank+1) << " " << int(file) << " " << field.str() << endl;
 	return field.str();
 }
 

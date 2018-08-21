@@ -293,8 +293,8 @@ Attacks::Attacks()
 
 void Attacks::init()
 {
-    generate_own_attacks();
-    generate_opponent_attacks();
+	generate_own_attacks();
+	generate_opponent_attacks();
 }
 
 void Attacks::generate_moves()
@@ -337,102 +337,102 @@ void Attacks::generate_moves()
 
 void Attacks::generate_opponent_attacks()
 {
-    bitmaps temp = Hexbitboard::get_bitboards();
-    uint8_t pos_from;
+	bitmaps temp = Hexbitboard::get_bitboards();
+	uint8_t pos_from;
 
-    if (!MoveGen::white_to_move) {
-        // white king attacks
-        bits128 white_king = temp.white_king;
-        pos_from = Hexbitboard::get_lsb(white_king);
-        bits128 temp_attacks = king_attacks[pos_from];
-        opponent_attacks = temp_attacks;
+	if (!MoveGen::white_to_move) {
+		// white king attacks
+		bits128 white_king = temp.white_king;
+		pos_from = Hexbitboard::get_lsb(white_king);
+		bits128 temp_attacks = king_attacks[pos_from];
+		opponent_attacks = temp_attacks;
 
-        // white knights attacks
-        bits128 white_knight = temp.white_knight;
-        while ((pos_from = Hexbitboard::get_lsb_and_reset(white_knight))) {
-            temp_attacks = knight_attacks[pos_from];
-            opponent_attacks |= temp_attacks;
-        }
-    }
-    else {
-        // black king attacks
-        bits128 black_king = temp.black_king;
-        pos_from = Hexbitboard::get_lsb(black_king);
-        bits128 temp_attacks = king_attacks[pos_from];
-        opponent_attacks = temp_attacks;
+		// white knights attacks
+		bits128 white_knight = temp.white_knight;
+		while ((pos_from = Hexbitboard::get_lsb_and_reset(white_knight))) {
+			temp_attacks = knight_attacks[pos_from];
+			opponent_attacks |= temp_attacks;
+		}
+	}
+	else {
+		// black king attacks
+		bits128 black_king = temp.black_king;
+		pos_from = Hexbitboard::get_lsb(black_king);
+		bits128 temp_attacks = king_attacks[pos_from];
+		opponent_attacks = temp_attacks;
 
-        // black knights attacks
-        bits128 black_knight = temp.black_knight;
-        while ((pos_from = Hexbitboard::get_lsb_and_reset(black_knight))) {
-            temp_attacks = knight_attacks[pos_from];
-            opponent_attacks |= temp_attacks;
-        }
-    }
+		// black knights attacks
+		bits128 black_knight = temp.black_knight;
+		while ((pos_from = Hexbitboard::get_lsb_and_reset(black_knight))) {
+			temp_attacks = knight_attacks[pos_from];
+			opponent_attacks |= temp_attacks;
+		}
+	}
 }
 
 void Attacks::generate_own_attacks()
 {
-    bitmaps temp = Hexbitboard::get_bitboards();
-    uint8_t pos_from;
+	bitmaps temp = Hexbitboard::get_bitboards();
+	uint8_t pos_from;
 
-    if (MoveGen::white_to_move) {
-        // white king attacks
-        bits128 white_king = temp.white_king;
-        pos_from = Hexbitboard::get_lsb(white_king);
-        bits128 temp_attacks = king_attacks[pos_from];
-        own_attacks = temp_attacks;
+	if (MoveGen::white_to_move) {
+		// white king attacks
+		bits128 white_king = temp.white_king;
+		pos_from = Hexbitboard::get_lsb(white_king);
+		bits128 temp_attacks = king_attacks[pos_from];
+		own_attacks = temp_attacks;
 
-        // white knights attacks
-        bits128 white_knight = temp.white_knight;
-        while ((pos_from = Hexbitboard::get_lsb_and_reset(white_knight))) {
-            temp_attacks = knight_attacks[pos_from];
-            own_attacks |= temp_attacks;
-        }
-    }
-    else {
-        // black king attacks
-        bits128 black_king = temp.black_king;
-        pos_from = Hexbitboard::get_lsb(black_king);
-        bits128 temp_attacks = king_attacks[pos_from];
-        own_attacks = temp_attacks;
+		// white knights attacks
+		bits128 white_knight = temp.white_knight;
+		while ((pos_from = Hexbitboard::get_lsb_and_reset(white_knight))) {
+			temp_attacks = knight_attacks[pos_from];
+			own_attacks |= temp_attacks;
+		}
+	}
+	else {
+		// black king attacks
+		bits128 black_king = temp.black_king;
+		pos_from = Hexbitboard::get_lsb(black_king);
+		bits128 temp_attacks = king_attacks[pos_from];
+		own_attacks = temp_attacks;
 
-        // black knights attacks
-        bits128 black_knight = temp.black_knight;
-        while ((pos_from = Hexbitboard::get_lsb_and_reset(black_knight))) {
-            temp_attacks = knight_attacks[pos_from];
-            own_attacks |= temp_attacks;
-        }
-    }
+		// black knights attacks
+		bits128 black_knight = temp.black_knight;
+		while ((pos_from = Hexbitboard::get_lsb_and_reset(black_knight))) {
+			temp_attacks = knight_attacks[pos_from];
+			own_attacks |= temp_attacks;
+		}
+	}
 }
 
 bool Attacks::position_is_ok()
 {
-    if (!Hexbitboard::get_black_king()) {
-        return false;
-    }
-    if (!Hexbitboard::get_white_king()) {
-        return false;
-    }
-    generate_own_attacks();
-    if (MoveGen::white_to_move) {
-        if (own_attacks & Hexbitboard::get_black_king()) {
-            return false;
-        }
-    }
-    else if (own_attacks & Hexbitboard::get_white_king()) {
-        return false;
-    }
-    return true;
+	if (!Hexbitboard::get_black_king()) {
+		return false;
+	}
+	if (!Hexbitboard::get_white_king()) {
+		return false;
+	}
+	generate_own_attacks();
+	if (MoveGen::white_to_move) {
+		if (own_attacks & Hexbitboard::get_black_king()) {
+			return false;
+		}
+	}
+	else if (own_attacks & Hexbitboard::get_white_king()) {
+		return false;
+	}
+	return true;
 }
 
 bool Attacks::king_is_attacked()
 {
-    assert(position_is_ok());
-    generate_opponent_attacks();
-    if (MoveGen::white_to_move) {
-        return (opponent_attacks & Hexbitboard::get_white_king());
-    }
-    else {
-        return (opponent_attacks & Hexbitboard::get_black_king());
-    }
+	assert(position_is_ok());
+	generate_opponent_attacks();
+	if (MoveGen::white_to_move) {
+		return (opponent_attacks & Hexbitboard::get_white_king());
+	}
+	else {
+		return (opponent_attacks & Hexbitboard::get_black_king());
+	}
 }
