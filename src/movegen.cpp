@@ -44,7 +44,7 @@ MoveGen::MoveGen()
 {
 }
 
-void MoveGen::add_move(const color c, const piece p, const uint8_t from, const uint8_t to)
+void MoveGen::add_move(const color_to_move c, const piece p, const uint8_t from, const uint8_t to)
 {
 	assert(move_top < MOVE_STACK_SIZE);
     assert(from > 9);
@@ -155,7 +155,6 @@ bool MoveGen::make_move(move_t &move)
 		Attacks::generate_opponent_attacks();
 		white_to_move = !white_to_move;
         if (Hexbitboard::get_white_king() & Attacks::enemy_attacks()) {
-			cout << "\tmove is illegal" << endl;
 			return false;
 		}
 		else {

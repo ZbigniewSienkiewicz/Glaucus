@@ -299,49 +299,40 @@ void Attacks::init()
 
 void Attacks::generate_moves()
 {
-    bitmaps temp = Hexbitboard::get_bitboards();
-    MoveGen::reset_move_stack();
-    uint8_t pos_from, pos_to;
+	bitmaps temp = Hexbitboard::get_bitboards();
+	MoveGen::reset_move_stack();
+	uint8_t pos_from, pos_to;
+	bits128 own_king, own_knight, own_pieces, opposite_king;
+	color_to_move side_to_move;
+	if (MoveGen::white_to_move) {
+		own_king = temp.white_king;
+		own_knight = temp.white_knight;
+		own_pieces = temp.white_pieces;
+		opposite_king = temp.black_king;
+		side_to_move = WHITE;
+	}
+	else {
+		own_king = temp.black_king;
+		own_knight = temp.black_knight;
+		own_pieces = temp.black_pieces;
+		opposite_king = temp.white_king;
+		side_to_move = BLACK;
+	}
 
-    if (MoveGen::white_to_move) {
-        // white king attacks
-        bits128 white_king = temp.white_king;
-        pos_from = Hexbitboard::get_lsb(white_king);
-        bits128 temp_attacks = king_attacks[pos_from] & ~(temp.white_pieces) &~(temp.black_king);
-        while ((pos_to = Hexbitboard::get_lsb_and_reset(temp_attacks))) {
-            assert(pos_to > 9);
-            MoveGen::add_move(WHITE, KING, pos_from, pos_to);
-        }
+	// king attacks
+	pos_from = Hexbitboard::get_lsb(own_king);
+	bits128 temp_attacks = king_attacks[pos_from] & ~(own_pieces) &~(opposite_king);
+	while ((pos_to = Hexbitboard::get_lsb_and_reset(temp_attacks))) {
+		MoveGen::add_move(side_to_move, KING, pos_from, pos_to);
+	}
 
-        // white knights attacks
-        bits128 white_knight = temp.white_knight;
-        while ((pos_from = Hexbitboard::get_lsb_and_reset(white_knight))) {
-            temp_attacks = knight_attacks[pos_from] & ~(temp.white_pieces) & ~(temp.black_king);
-            while ((pos_to = Hexbitboard::get_lsb_and_reset(temp_attacks))) {
-                assert(pos_from > 9);
-                assert(pos_to > 9);
-                MoveGen::add_move(WHITE, KNIGHT, pos_from, pos_to);
-            }
-        }
-    }
-    else {
-        // black king attacks
-        bits128 black_king = temp.black_king;
-        pos_from = Hexbitboard::get_lsb(black_king);
-        bits128 temp_attacks = king_attacks[pos_from] & ~(temp.black_pieces) & ~(temp.white_king);
-        while ((pos_to = Hexbitboard::get_lsb_and_reset(temp_attacks))) {
-            MoveGen::add_move(BLACK, KING, pos_from, pos_to);
-        }
-
-        // black knights attacks
-        bits128 black_knight = temp.black_knight;
-        while ((pos_from = Hexbitboard::get_lsb_and_reset(black_knight))) {
-            temp_attacks = knight_attacks[pos_from] & ~(temp.black_pieces) & ~(temp.white_king);
-            while ((pos_to = Hexbitboard::get_lsb_and_reset(temp_attacks))) {
-                MoveGen::add_move(BLACK, KNIGHT, pos_from, pos_to);
-            }
-        }
-    }
+	// knights attacks
+	while ((pos_from = Hexbitboard::get_lsb_and_reset(own_knight))) {
+		temp_attacks = knight_attacks[pos_from] & ~(own_pieces) & ~(opposite_king);
+		while ((pos_to = Hexbitboard::get_lsb_and_reset(temp_attacks))) {
+			MoveGen::add_move(side_to_move, KNIGHT, pos_from, pos_to);
+		}
+	}
 }
 
 void Attacks::generate_opponent_attacks()

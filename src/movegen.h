@@ -33,7 +33,7 @@ const uint64_t GAME_STACK_SIZE = 1024;
 
 enum piece { KING = 4, KNIGHT = 8, ROOK = 16, BISHOP = 32, QUEEN = 64, PAWN = 128 };
 
-enum color { WHITE = 1, BLACK = 2 };
+enum color_to_move { WHITE = 1, BLACK = 2 };
 
 enum move_type { COLOR_PIECE = 0, PIECE_FROM = 1, PIECE_TO = 2, MOVE_TYPE = 3 };
 
@@ -49,7 +49,7 @@ union move_t {
 class MoveGen
 {
 public:
-    static void add_move(const color c, const piece p, const uint8_t from, const uint8_t to);
+	static void add_move(const color_to_move c, const piece p, const uint8_t from, const uint8_t to);
 	static void reset_move_stack();
 	static std::string get_moves();
 	static std::string get_legal_moves();
